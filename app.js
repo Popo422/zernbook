@@ -28,14 +28,15 @@ app.use(cors());
 app.use(express.json());
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
-app.use(morgan("common"));
+app.use(morgan("common")); //logger ng middleware
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
+app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use("/assets", express.static(path.join(__dirname, "public/assets"))); //set directory where we keep our images locally
 
 /*FILE STORAGE*/
 //github instruction ng multer lang to
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "public/assets"); //dito iuupload ung file
@@ -57,7 +58,8 @@ app.get("/", async (req, res) => {
 /*Routes With Files*/
 app.post("/auth/register", upload.single("picture"), register); //middlware ung upload controller ung register
 app.post("/posts", verifyToken, upload.single("picture"), createPost);
-/*ROutes*/
+
+/*Routes*/
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
@@ -81,7 +83,7 @@ mongoose
 
 const io = new Server(server, {
   cors: {
-    origin: "https://zernbook-ui.vercel.app/", //client calls socket io
+    origin: "https://zernbook-ui.vercel.app", //client calls socket io
     methods: ["GET", "POST"],
   },
 });
