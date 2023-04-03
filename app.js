@@ -83,7 +83,7 @@ mongoose
 
 const io = new Server(server, {
   cors: {
-    origin: "https://zernbook-ui.vercel.app", //client calls socket io
+    origin: "https://zernbook-ui.vercel.app/", //client calls socket io
     methods: ["GET", "POST"],
   },
 });
